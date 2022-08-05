@@ -1,5 +1,14 @@
-
-
+require('dotenv').config()
+const {CONNECTION_STRING} = process.env
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize(CONNECTION_STRING, {
+    dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
+})
 
 
 module.exports = {
@@ -42,9 +51,11 @@ module.exports = {
         ('Salmon', 'Meat', '1 lb', 12.99, 'https://e7.pngegg.com/pngimages/21/241/png-clipart-sockeye-salmon-fish-cute-salmon-s-food-orange.png'),
         ('Chicken Nuggets', 'Meat', '32 oz' 8.99, 'https://thumbs.dreamstime.com/z/nuggetboxstalo-174963252.jpg'),
         ('Top Serloin Steak', 'Meat', '1 lb', 13.99, 'https://previews.123rf.com/images/blamb/blamb1407/blamb140700834/29643262-a-thick-cartoon-steak-ready-to-be-cooked-.jpg');
-
-        
-        
-        `)
+        `).then(() => {
+            console.log('DB seeded!')
+            res.sendStatus(200)
+        }).catch(err => console.log('error seeding DB', err))
+        }
     }
-}
+
+    //getGroceries
