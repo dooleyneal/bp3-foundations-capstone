@@ -12,7 +12,7 @@ app.use(cors())
 
 app.post('/seed', seed)
 
-//app.get('/groceries', getGroceries)
+app.get('/groceries', getGroceries)
 
 
 

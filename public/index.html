@@ -8,17 +8,29 @@
     <title>Capstone Project</title>
 </head>
 <body>
+    <img id="background" src="https://www.escoffier.edu/wp-content/uploads/2015/07/reusable-grocery-bags-can-benefit-you-and-the-environment_1028_40075963_1_14111630_500.jpg" alt="grocery bag">
     <div id="addItem">
-        <h2>Add to Grocery List</h2>
-        <form>
-            <label for="grocery-select">Choose Your Item</label>
-            <select id="grocery-select" placeholder="Choose Your Item"></select><br>
-            <input type="text" id="quantity" placeholder="Quantity"> <br>
+        <h2 class="listHeading">Add to Grocery List</h2>
+        <form id="whatToAdd">
+            <div id="listSelectContainer">
+                <label for="listSelect">Select a List</label>
+                <select name="listSelect" id="listSelect"></select>
+            </div>
+            <div id="grocerySelectContainer">
+                <label for="grocerySelect">Choose Your Item</label>
+                <select id="grocerySelect" placeholder="Choose Your Item"></select>
+            </div>
+            <input type="text" id="quantity" placeholder="Quantity">
             <button id="add" onclick="addToList()">Add</button>
         </form>
     </div>
-    <div id="Grocery-List">
+    <div id="addNewList">
+        <input type="text" id="newListName" placeholder="New List Title">
+        <button id="addNewListBtn">Create New List</button>
+    </div>
+    <div id="Grocery-Lists">
         <h2>Your Grocery List</h2>
+        <span class="deleteList">x</span>
         <table>
             <thead>Item</thead>
             <thead>Quantity</thead>

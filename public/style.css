@@ -1,6 +1,62 @@
+#whatToAdd {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 #addItem {
     border: 2px solid black;
     width: 300px;
+    height: 200px;
     text-align: center;
+    margin: 20px;
+    z-index: 2;
     
 }
+#addNewList {
+    z-index: 2;
+}
+
+#Grocery-Lists {
+    border: 2px solid black;
+    width: 500px;
+    margin: 20px;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    
+
+}
+
+#background {
+    position: absolute;
+    z-index: 1;
+    width: 1000px;
+    opacity: 0.6;
+}
+
+thead {
+
+}
+
+.title-delete {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.deleteList {
+    font-size: 50px;
+    position: absolute;
+    right: 5px;
+    top: 0px;
+}
+
+
+

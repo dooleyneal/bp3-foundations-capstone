@@ -55,7 +55,13 @@ module.exports = {
             console.log('DB seeded!')
             res.sendStatus(200)
         }).catch(err => console.log('error seeding DB', err))
-        }
-    }
+        },
 
-    //getGroceries
+    getGroceries: (req, res) => {
+        sequelize.query(`
+        SELECT grocery_id, name FROM groceries;`)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+    }
+}
+
+    
