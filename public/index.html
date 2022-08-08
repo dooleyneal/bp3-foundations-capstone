@@ -21,7 +21,7 @@
                 <select id="grocerySelect" placeholder="Choose Your Item"></select>
             </div>
             <input type="text" id="quantity" placeholder="Quantity">
-            <button id="add" onclick="addToList()">Add</button>
+            <button id="addToListBtn" onclick="addToList()">Add</button>
         </form>
     </div>
     <div id="addNewList">
@@ -32,11 +32,15 @@
         <h2>Your Grocery List</h2>
         <span class="deleteList">x</span>
         <table>
-            <thead>Item</thead>
-            <thead>Quantity</thead>
-            <thead>Price</thead>
-            <thead></thead>
+            <tr>
+                <thead>Item</thead>
+                <thead>Quantity</thead>
+                <thead>Price</thead>
+                <thead></thead>
+            </tr>
         </table>
     </div>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
