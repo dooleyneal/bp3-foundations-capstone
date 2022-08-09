@@ -18,7 +18,7 @@
             </div>
             <div id="grocerySelectContainer">
                 <label for="grocerySelect">Choose Your Item</label>
-                <select id="grocerySelect" placeholder="Choose Your Item"></select>
+                <select id="grocerySelect"></select>
             </div>
             <input type="text" id="quantity" placeholder="Quantity">
             <button id="addToListBtn" onclick="addToList()">Add</button>
@@ -28,19 +28,21 @@
         <input type="text" id="newListName" placeholder="New List Title">
         <button id="addNewListBtn">Create New List</button>
     </div>
-    <div id="Grocery-Lists">
-        <h2>Your Grocery List</h2>
-        <span class="deleteList">x</span>
-        <table>
-            <tr>
-                <thead>Item</thead>
-                <thead>Quantity</thead>
-                <thead>Price</thead>
-                <thead></thead>
-            </tr>
-        </table>
-    </div>
+    <div id="listContainer">
+        <div class="List">
+            <h2>Your Grocery List</h2>
+            <span class="deleteList">x</span>
+            <table>
+                <tr>
+                    <thead>Item</thead>
+                    <thead>Quantity</thead>
+                    <thead>Price</thead>
+                    <thead></thead>
+                </tr>
+            </table>
+        </div>
+    </div>    
     <script src="../node_modules/axios/dist/axios.min.js"></script>
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
 </body>
 </html>

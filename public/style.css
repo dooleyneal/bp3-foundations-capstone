@@ -3,6 +3,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+#grocerySelect {
+    width: 100px;
+}
 
 #addItem {
     border: 2px solid black;
@@ -17,8 +20,9 @@
     z-index: 2;
 }
 
-#Grocery-Lists {
+.List {
     border: 2px solid black;
+    width: 500px;
     width: 500px;
     margin: 20px;
     z-index: 2;
@@ -41,9 +45,9 @@ body {
     opacity: 0.6;
 }
 
-thead {
+/* thead {
 
-}
+} */
 
 .title-delete {
     display: flex;
