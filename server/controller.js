@@ -128,7 +128,7 @@ INSERT INTO groceries (name, department, size, price)
     },
 
     deleteItem:(req, res) => {
-        const {name} = req.body.data
+        const {name} = req.body
         const {id} = req.params
         sequelize.query(`
         UPDATE groceries

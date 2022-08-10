@@ -47,7 +47,7 @@
 
 body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     
 
 }
@@ -87,6 +87,18 @@ body {
 
 .itemName {
     z-index: 2;
+}
+
+#notHeading {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#heading {
+    z-index: 2;
+    background-color: rgb(126,199,168);
+    width: 1400px;
 }
 
 

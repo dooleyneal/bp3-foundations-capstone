@@ -18,7 +18,7 @@ app.get('/grocery_lists', getLists)
 app.post('/grocery_lists', createNewList)
 app.delete('/grocery_lists/:id', deleteList)
 app.put('/grocery/:id', addToList)
-app.put('/grocery/:id', deleteItem)
+app.delete('/grocery/:id', deleteItem)
 app.post(`/groceries`, displayListItems)
 
 

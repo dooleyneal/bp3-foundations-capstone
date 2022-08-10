@@ -8,39 +8,45 @@
     <title>Capstone Project</title>
 </head>
 <body>
-    <img id="background" src="https://www.escoffier.edu/wp-content/uploads/2015/07/reusable-grocery-bags-can-benefit-you-and-the-environment_1028_40075963_1_14111630_500.jpg" alt="grocery bag">
-    <div id="Forms">
-        <div id="addNewList">
-            <input type="text" id="newListName" placeholder="New List Title">
-            <button id="addNewListBtn">Create New List</button>
-        </div>
-        <div id="addItem">
-            <h2 class="listHeading">Add to a Grocery List</h2>
-            <form id="whatToAdd">
-                <div id="listSelectContainer">
-                    <label for="listSelect">Select a List</label>
-                    <select name="listSelect" id="listSelect"></select>
-                </div>
-                <div id="grocerySelectContainer">
-                    <label for="grocerySelect">Choose Your Item</label>
-                    <select id="grocerySelect"></select>
-                </div>
-                <button id="addToListBtn">Add</button>
-            </form>
-        </div>
+    <div id="heading">
+        <h1>Grocery List Generator</h1>
     </div>
-    <div id="listContainer">
-        <div class="List">
-            <h2>Your Grocery List</h2>
-            <div class="listItem">
-                <p class="itemName">${listItem.name}</p>
-                <p class="itemDepartment">${listItem.department}</p>
-                <p class="itemSize">${listItem.size}</p>
-                <p class="itemPrice">${listItem.price}<p>
-                <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}">x</button>
+    
+    <div id="notHeading">
+        <img id="background" src="https://www.escoffier.edu/wp-content/uploads/2015/07/reusable-grocery-bags-can-benefit-you-and-the-environment_1028_40075963_1_14111630_500.jpg" alt="grocery bag">
+        <div id="Forms">
+            <div id="addNewList">
+                <input type="text" id="newListName" placeholder="New List Title">
+                <button id="addNewListBtn">Create New List</button>
             </div>
-        </div>    
-    </div>    
+            <div id="addItem">
+                <h2 class="listHeading">Add to a Grocery List</h2>
+                <form id="whatToAdd">
+                    <div id="listSelectContainer">
+                        <label for="listSelect">Select a List</label>
+                        <select name="listSelect" id="listSelect"></select>
+                    </div>
+                    <div id="grocerySelectContainer">
+                        <label for="grocerySelect">Choose Your Item</label>
+                        <select id="grocerySelect"></select>
+                    </div>
+                    <button id="addToListBtn">Add</button>
+                </form>
+            </div>
+        </div>
+        <div id="listContainer">
+            <div class="List">
+                <h2>Your Grocery List</h2>
+                <div class="listItem">
+                    <p class="itemName">${listItem.name}</p>
+                    <p class="itemDepartment">${listItem.department}</p>
+                    <p class="itemSize">${listItem.size}</p>
+                    <p class="itemPrice">${listItem.price}<p>
+                    <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}">x</button>
+                </div>
+            </div>    
+        </div> 
+    </div>   
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="./index.js"></script>
 </body>

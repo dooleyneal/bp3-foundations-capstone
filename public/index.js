@@ -14,7 +14,6 @@ const getLists = () => {
     .then(res => {
         res.data.forEach(list => {
             const option = document.createElement('option')
-            console.log(list)
             option.setAttribute('value', list.list_id)
             option.setAttribute(`id`, `list` + `${list.list_id}`)
             option.setAttribute('name', list.name)
@@ -43,47 +42,60 @@ const displayLists = () => {
     .then(res => {
         res.data.forEach(elem => {
             if (!Boolean(document.getElementById(`${elem.list_id}`))) {
-                var list = `<div class="List" id="${elem.list_id}">
-                <h2 id="${elem.list_id}name">${elem.name}</h2>
-                <button class="deleteList" onClick="deleteList(${elem.list_id})">x</button>`
+                var list = document.createElement('div')
+                list.setAttribute("id", `${elem.list_id}`)
+                list.setAttribute("class", "List")
 
-                console.log(displayListItems(elem, ''))
+                const listHead = document.createElement('h2')
+                listHead.setAttribute('id', `${elem.list_id}name`)
+                listHead.innerText = elem.name
+                list.appendChild(listHead)
+
+                const listButton = document.createElement('button')
+                listButton.setAttribute('class', "deleteList")
+                listButton.setAttribute('onClick', `deleteList(${elem.list_id})`)
+                listButton.innerText = 'x'
+                list.appendChild(listButton)
+                console.log(listButton)
                 
-                console.log(list)
-                listContainer.innerHTML += list
+                listContainer.appendChild(list)
+                
+                displayListItems(elem, list, '')
+        
             } 
         })
     })
 
 }
 
-const displayListItems = (elem, listAdder) => {
+const displayListItems = (elem, list, listAdder) => {
     axios.post(`http://localhost:4005/groceries`, {data: {name: elem.name}})
-    .then((listRes) => { 
-        console.log(listRes.data)
-        listRes.data.forEach(listItem => {
+    .then((listRes) => createHtml(listRes.data, elem, list, listAdder))
+}
+        
 
-             //console.log(listItem)
-            listAdder += `<div class="listItem">
+const createHtml = (listarray, elem, list, listAdder) => {
+    console.log(listarray)
+    listarray.forEach(listItem => {
+    listAdder += `<div class="listItem">
             <p class="itemName">${listItem.name}</p>
             <p class="itemDepartment">${listItem.department}</p>
             <p class="itemSize">${listItem.size}</p>
-            <p class="itemPrice">${listItem.price}<p>
-            <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}" onClick="deleteItem(${listItem.grocery_id}, "${elem.name}")">x</button>
+            <p class="itemPrice">$${listItem.price}<p>
+            <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}" onClick="deleteItem(${listItem.grocery_id}, '${elem.name}')">x</button>
             </div>`
-
-            console.log(listAdder)
-        })
-        console.log(listAdder)
+        list.innerHTML += listAdder
     })
-    return listAdder
+
+
 }
 
 const deleteItem = (grocery_id, listName) => {
-    axios.put(`http://localhost:4005/grocery/${grocery_id}`, {data: {name: listName}})
+    console.log(listName)
+    axios.delete(`http://localhost:4005/grocery/${grocery_id}`, {data: {name: listName}})
     .then(() => {
         displayLists()
-    })
+    }).catch(err => console.log(err))
 }
 
 const createNewList = () => {
