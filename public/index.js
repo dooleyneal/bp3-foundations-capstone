@@ -1,13 +1,12 @@
-//const { default: axios } = require("axios")
 
 
 const grocerySelect = document.querySelector('#grocerySelect')
 const addNewListBtn = document.querySelector('#addNewListBtn')
 const newListName = document.querySelector('#newListName')
 const listSelect = document.querySelector('#listSelect')
-const quantity = document.querySelector('#quantity')
-const addToListBtn = document.querySelector('#addToListButton')
+const addToListBtn = document.querySelector('#addToListBtn')
 const listContainer = document.querySelector('#listContainer')
+
 
 
 const getLists = () => {
@@ -15,7 +14,10 @@ const getLists = () => {
     .then(res => {
         res.data.forEach(list => {
             const option = document.createElement('option')
+            console.log(list)
             option.setAttribute('value', list.list_id)
+            option.setAttribute(`id`, `list` + `${list.list_id}`)
+            option.setAttribute('name', list.name)
             option.textContent = list.name
             listSelect.appendChild(option)
         })
@@ -29,28 +31,24 @@ const getGroceries = () => {
             res.data.forEach(grocery => {
                 const option = document.createElement('option')
                 option.setAttribute('value', grocery.grocery_id)
+                option.setAttribute('id', `grocery` + `${grocery.grocery_id}`)
+                option.setAttribute('name', grocery.name)
                 option.textContent = grocery.name
                 grocerySelect.appendChild(option)
             })
         }).catch(err => console.log(err))
 }
-
 const displayLists = () => {
     axios.get('http://localhost:4005/grocery_lists')
     .then(res => {
         res.data.forEach(elem => {
             if (!Boolean(document.getElementById(`${elem.list_id}`))) {
-                let list = `<div class="List" id="${elem.list_id}">
+                var list = `<div class="List" id="${elem.list_id}">
                 <h2 id="${elem.list_id}name">${elem.name}</h2>
-                <span class="deleteList" onClick="deleteList(${elem.list_id})">x</span>
-                <table>
-                    <tr>
-                        <thead>Item</thead>
-                        <thead>Quantity</thead>
-                        <thead>Price</thead>
-                        <thead></thead>
-                    </tr>
-                </table>`
+                <button class="deleteList" onClick="deleteList(${elem.list_id})">x</button>`
+
+                console.log(displayListItems(elem, ''))
+                
                 console.log(list)
                 listContainer.innerHTML += list
             } 
@@ -59,23 +57,68 @@ const displayLists = () => {
 
 }
 
+const displayListItems = (elem, listAdder) => {
+    axios.post(`http://localhost:4005/groceries`, {data: {name: elem.name}})
+    .then((listRes) => { 
+        console.log(listRes.data)
+        listRes.data.forEach(listItem => {
 
-const createNewList = () => {
-    let bodyObj = {
-        name: newListName.value
-    }
-    console.log(bodyObj)
-    axios.post('http://localhost:4005/grocery_lists', bodyObj)
+             //console.log(listItem)
+            listAdder += `<div class="listItem">
+            <p class="itemName">${listItem.name}</p>
+            <p class="itemDepartment">${listItem.department}</p>
+            <p class="itemSize">${listItem.size}</p>
+            <p class="itemPrice">${listItem.price}<p>
+            <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}" onClick="deleteItem(${listItem.grocery_id}, "${elem.name}")">x</button>
+            </div>`
+
+            console.log(listAdder)
+        })
+        console.log(listAdder)
+    })
+    return listAdder
+}
+
+const deleteItem = (grocery_id, listName) => {
+    axios.put(`http://localhost:4005/grocery/${grocery_id}`, {data: {name: listName}})
     .then(() => {
         displayLists()
-        newListName.value = ''
     })
+}
+
+const createNewList = () => {
+    if(Boolean(document.querySelector(`[name="${newListName.value}"]`)) || /[.,!?@#$%^&*()\-+={}\[\];:'"`~<>\\\/]/.test(newListName.value)) {
+        alert('Use a different name.')
+    }
+    else{
+        if(newListName.value.includes(' ') || newListName.value === '') {
+            alert(`Don't use spaces.`)
+        }
+        else{
+            let bodyObj = {
+                name: newListName.value
+            }
+            axios.post('http://localhost:4005/grocery_lists', bodyObj)
+            .then(() => {
+                displayLists()
+                newListName.value = ''
+            })
+        }
+    }
 }
 
 const deleteList = (list_id) => {
     const listName = document.getElementById(`${list_id}name`).innerText
-    console.log(listName)
     axios.delete(`http://localhost:4005/grocery_lists/${list_id}`, {data: {name: listName }})
+    .then(() => {
+        displayLists()
+    })
+}
+
+
+const addToList = () => {
+    const listName = document.querySelector(`#list${listSelect.value}`).text
+    axios.put(`http://localhost:4005/grocery/${grocerySelect.value}`, {data: {name: listName}})
     .then(() => {
         displayLists()
     })
@@ -88,6 +131,12 @@ addNewListBtn.addEventListener('click', (event) => {
     createNewList()
 
 })
+
+addToListBtn.addEventListener('click', (event) => {
+    event.preventDefault()
+    addToList()
+})
+
 
 
 

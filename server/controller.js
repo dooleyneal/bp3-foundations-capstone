@@ -15,6 +15,7 @@ module.exports = {
     seed: (req, res) => {
         sequelize.query(`
         DROP TABLE IF EXISTS groceries;
+        DROP TABLE IF EXISTS grocery_lists;
         
 CREATE TABLE groceries (
   grocery_id SERIAL PRIMARY KEY,
@@ -69,14 +70,23 @@ INSERT INTO groceries (name, department, size, price)
 
     getGroceries: (req, res) => {
         sequelize.query(`
-        SELECT * FROM groceries;`)
-        .then(dbRes => res.status(200).send(dbRes[0]))
+        SELECT * FROM groceries;
+        `).then(dbRes => res.status(200).send(dbRes[0]))
     },
 
     displayLists: (req, res) => {
         sequelize.query(`
         SELECT * FROM grocery_lists;`)
         .then(dbRes => res.status(200).send(dbRes[0]))
+    },
+
+    displayListItems: (req, res) => {
+        const {name} = req.body.data
+        sequelize.query(`
+        SELECT grocery_id, name, department, size, price FROM groceries
+        WHERE ${name} = TRUE
+        ORDER BY department;
+        `).then(dbRes => res.status(200).send(dbRes[0]))
     },
 
     createNewList: (req, res) => {
@@ -97,8 +107,6 @@ INSERT INTO groceries (name, department, size, price)
     },
 
     deleteList: (req, res) => {
-        console.log(req.body)
-        console.log(req.params)
         const {name} = req.body
         sequelize.query(`
         DELETE FROM grocery_lists
@@ -107,7 +115,28 @@ INSERT INTO groceries (name, department, size, price)
         ALTER TABLE groceries
         DROP COLUMN ${name};
         `).then(dbRes => res.status(200).send(dbRes[0]))
+    },
+
+    addToList: (req, res) => {
+        const {name} = req.body.data
+        const {id} = req.params
+        sequelize.query(`
+        UPDATE groceries
+        SET ${name} = TRUE
+        WHERE grocery_id = ${id};
+        `).then(dbRes => res.status(200).send(dbRes[0]))
+    },
+
+    deleteItem:(req, res) => {
+        const {name} = req.body.data
+        const {id} = req.params
+        sequelize.query(`
+        UPDATE groceries
+        SET ${name} = FALSE
+        WHERE grocery_id = ${id};
+        `).then(dbRes => res.status(200).send(dbRes[0]))
     }
+
 }
 
 
