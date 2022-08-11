@@ -22,5 +22,5 @@ app.delete('/grocery/:id', deleteItem)
 app.post(`/groceries`, displayListItems)
 
 
-
-app.listen(SERVER_PORT, () => console.log(`up on ${SERVER_PORT}`))
+const port = process.env.PORT || SERVER_PORT
+app.listen(port, () => console.log(`up on ${port}`))
