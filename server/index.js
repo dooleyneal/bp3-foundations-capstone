@@ -1,15 +1,18 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path')
 const app = express()
 const cors = require('cors')
 const {SERVER_PORT} = process.env
 const {seed, getGroceries, displayLists, getLists, createNewList, deleteList, addToList, displayListItems, deleteItem} = require('./controller.js') 
 
-
+app.use(express.static('public'))
 app.use(express.json())
 app.use(cors())
 
-
+app.get('/', (req,res) => { 
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+})
 app.post('/seed', seed)
 
 app.get('/groceries', getGroceries)
