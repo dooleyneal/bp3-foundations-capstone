@@ -1,5 +1,5 @@
 
-const { default: axios } = require("axios")
+//const { default: axios } = require("axios")
 
 const grocerySelect = document.querySelector('#grocerySelect')
 const addNewListBtn = document.querySelector('#addNewListBtn')
