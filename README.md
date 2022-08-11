@@ -1,0 +1,2 @@
+This application is designed to allow th user to build grocery lists with seeded Postgres data.
+To use this app, install the following dependencies: axios, express, dotenv, cors, pg, pg-hstore, and sequelize.
