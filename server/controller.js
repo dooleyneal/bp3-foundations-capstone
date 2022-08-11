@@ -70,7 +70,8 @@ INSERT INTO groceries (name, department, size, price)
 
     getGroceries: (req, res) => {
         sequelize.query(`
-        SELECT * FROM groceries;
+        SELECT * FROM groceries
+        ORDER BY grocery_id;
         `).then(dbRes => res.status(200).send(dbRes[0]))
     },
 

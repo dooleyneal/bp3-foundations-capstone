@@ -77,7 +77,9 @@ const displayListItems = (elem, list, listAdder) => {
 const createHtml = (listarray, elem, list, listAdder) => {
     console.log(listarray)
     listarray.forEach(listItem => {
-    listAdder += `<div class="listItem">
+        listAdder = ''
+        if(!Boolean(document.getElementById(`"${listItem.grocery_id}deleteFrom${elem.list_id}"`))) {
+        listAdder += `<div class="listItem">
             <p class="itemName">${listItem.name}</p>
             <p class="itemDepartment">${listItem.department}</p>
             <p class="itemSize">${listItem.size}</p>
@@ -85,6 +87,7 @@ const createHtml = (listarray, elem, list, listAdder) => {
             <button class="itemDelete" id="${listItem.grocery_id}deleteFrom${elem.list_id}" onClick="deleteItem(${listItem.grocery_id}, '${elem.name}')">x</button>
             </div>`
         list.innerHTML += listAdder
+        }
     })
 
 
