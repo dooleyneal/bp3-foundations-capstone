@@ -24,6 +24,7 @@ const getLists = () => {
     })
 }
 
+
 const getGroceries = () => {
     axios.get('http://localhost:4005/groceries')
         .then(res => {
@@ -76,7 +77,6 @@ const displayListItems = (elem, list, listAdder) => {
         
 
 const createHtml = (listarray, elem, list, listAdder) => {
-    console.log(listarray)
     listarray.forEach(listItem => {
         listAdder = ''
         if(!Boolean(document.getElementById(`"${listItem.grocery_id}deleteFrom${elem.list_id}"`))) {
